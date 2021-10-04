@@ -45,23 +45,26 @@ def getData(days=0):
     #seleção e adição de dias a data
     df = pd.read_csv('datasets/owid-covid-data.csv')
     data = df[['date','total_cases','total_tests','positive_rate','reproduction_rate']]
+    #data referente ao registro dos primeiros casos de covid-19
     min_date = datetime.datetime.strptime('2020-01-22','%Y-%m-%d').date()
-    t2 = data[['date','total_cases','reproduction_rate']]
-    dias = days
-    dicionario = {}
-    for i in range(dias):
+    new_data = data[['date','total_cases','reproduction_rate']]
+    #dicionario que irá conter tr(taxa de contágio) e total de casos por data
+    dictonary = {}
+    for i in range(days):
         n_date = dateToStr(str(min_date+datetime.timedelta(days=i)))
-        dicionario[f'{n_date}'] = t2[t2['date'] == f'{n_date}']
+        dictonary[f'{n_date}'] = new_data[new_data['date'] == f'{n_date}']
     total = []
+    #tr é o taxa de contágio e ct o contador
     tr = []
     ct = 0
-    for chave in dicionario:
-        total.append(getTotal(dicionario[chave]))
+    for chave in dictonary:
+        total.append(getTotal(dictonary[chave]))
         if ct>0:
-            tr.append(meanTr(dicionario[chave]))
+            tr.append(meanTr(dictonary[chave]))
         else:
             tr.append(0)
         ct +=1
+    #gerando um dataframe contendo a taxa de transmissão/contagio e total de casos de cada data
     table = list(zip(total,tr))
     table = pd.DataFrame(table, columns = ['total','reproduction_rate'])
     return table
