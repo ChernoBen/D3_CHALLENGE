@@ -21,6 +21,7 @@ def sumDay(element):
         total+=item[1]
     return total
 
+#funcao que retorna a media da taxa de contagio/transmissao
 def meanTr(arr):
     tr = 0
     total = 0
@@ -44,15 +45,14 @@ def getTotal(df):
 def getData(days=0):
     #seleção e adição de dias a data
     df = pd.read_csv('datasets/owid-covid-data.csv')
-    data = df[['date','total_cases','total_tests','positive_rate','reproduction_rate']]
     #data referente ao registro dos primeiros casos de covid-19
     min_date = datetime.datetime.strptime('2020-01-22','%Y-%m-%d').date()
-    new_data = data[['date','total_cases','reproduction_rate']]
+    data = df[['date','total_cases','reproduction_rate']]
     #dicionario que irá conter tr(taxa de contágio) e total de casos por data
     dictonary = {}
     for i in range(days):
         n_date = dateToStr(str(min_date+datetime.timedelta(days=i)))
-        dictonary[f'{n_date}'] = new_data[new_data['date'] == f'{n_date}']
+        dictonary[f'{n_date}'] = data[data['date'] == f'{n_date}']
     total = []
     #tr é o taxa de contágio e ct o contador
     tr = []
@@ -69,17 +69,17 @@ def getData(days=0):
     table = pd.DataFrame(table, columns = ['total','reproduction_rate'])
     return table
 
-#funcao que retorna uma lista com procentagens de aumento do proximo dia em ralação ao anterior
+#funcao que retorna uma lista com porcentagens de aumento do proximo dia em ralação ao anterior
 def txMedia(arr):
     tx = []
     tx.append(0)
-    anterior = 0
+    previous = 0
     for i in range(len(arr)-1):
-        anterior = arr[i]
-        tx.append(((arr[i+1]-anterior)*100)/anterior)
+        previous = arr[i]
+        tx.append(((arr[i+1]-previous)*100)/previous)
     return tx
 
-#funcao que retorna uma lista com a taxa de aumento de casos a cada 15 dias
+#funcao que retorna uma lista com a taxa/procentagem média de aumento de casos a cada 15 dias
 def prcMedia(arr):
     tx = []
     counter = 0
@@ -102,12 +102,18 @@ def predict(day=0):
         d = day
     table = getData(d)
     counter = 0
+    #quantidade de casos registrados na menor data é usado como parâmetro para pedrição 
     first_cases = table['total'][0]
+    #days_list recebe uma lista com porcentagens de aumento do proximo dia em ralação ao anterior
     days_list = txMedia(table['total'].values)
+    #perc recebe uma lista com a taxa/procentagem média de aumento de casos a cada 15 dias
     perc = prcMedia(days_list)
+    #d_lista guardará as predições com base da taxa media quinzenal(perc) e casos do do dia anterior
     d_list = []
+    # quinzena é uma flag que serve como marcador de quinzenas
     quinzena = 0
     for i in range(day):
+        # first_cases recebe o produto da perc pelos casos anteriores divitido por 100 + casos anteriores
         first_cases = ((perc[quinzena]*first_cases)//100)+first_cases
         d_list.append(first_cases)
         counter +=1
