@@ -14,9 +14,9 @@ Após o processo de obtenção da taxa de aumento de casos, é utilizada a infor
 
 | Fontes | links |
 | ------ | ------ |
-| Período de incubação do virus | [https://portal.fiocruz.br/pergunta/qual-e-o-tempo-de-incubacao-do-novo-coronavirus][PlDb] |
-| Our World in Data GitHub Repo | [https://github.com/owid/covid-19-data][PlGh] |
-| Our World in Data | [https://ourworldindata.org/explorers/coronavirus-data-explorer?zoomToSelection=true&time=2020-03-01..latest&country=USA~GBR~CAN~DEU~ITA~IND&region=World&pickerMetric=location&pickerSort=asc&Interval=7-day+rolling+average&Align+outbreaks=false&Relative+to+Population=true&Metric=Confirmed+cases][PlGd] |
+| Período de incubação do virus | [https://portal.fiocruz.br/pergunta/qual-e-o-tempo-de-incubacao-do-novo-coronavirus] |
+| Our World in Data GitHub Repo |[https://github.com/owid/covid-19-data] |
+| Our World in Data | [https://ourworldindata.org/explorers/coronavirus-data-explorer?zoomToSelection=true&time=2020-03-01..latest&country=USA~GBR~CAN~DEU~ITA~IND&region=World&pickerMetric=location&pickerSort=asc&Interval=7-day+rolling+average&Align+outbreaks=false&Relative+to+Population=true&Metric=Confirmed+cases]|
 
 ## Tech's e Libs
 
