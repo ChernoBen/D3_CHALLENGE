@@ -44,7 +44,7 @@ def getTotal(df):
 #funcao que retorna um dataframe contendo dados extraidos de uma base csv
 def getData(days=0):
     #seleção e adição de dias a data
-    df = pd.read_csv('datasets/owid-covid-data.csv')
+    df = pd.read_csv('src/datasets/owid-covid-data.csv')
     #data referente ao registro dos primeiros casos de covid-19
     min_date = datetime.datetime.strptime('2020-01-22','%Y-%m-%d').date()
     data = df[['date','total_cases','reproduction_rate']]
