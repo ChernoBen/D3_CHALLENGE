@@ -120,6 +120,7 @@ def predict(day=0):
         if counter > 15:
             counter = 0
             quinzena +=1
+    print(f'Dado D={day}, teremos:\n')
     for j in range(day):
         if j == 0:
             print(f'{j+1} -> {int(table["total"][0])}')
